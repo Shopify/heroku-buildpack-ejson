@@ -1,7 +1,3 @@
-dependencies:
-  override:
-    - echo Not bundle installing
-
 test:
   override:
     - script/test

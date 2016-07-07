@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. $BUILDPACK_TEST_RUNNER_HOME/lib/test_utils.sh
+. "$BUILDPACK_TEST_RUNNER_HOME/lib/test_utils".sh
 TMPDIR=$(mktemp -d)
 
 cleanup() {
@@ -9,12 +9,12 @@ cleanup() {
 trap cleanup EXIT
 
 compile_with_fixture() {
-  FIXTURE_DIR=$BUILDPACK_HOME/test/fixtures/$1
-  rm -r $TMPDIR/build $TMPDIR/env $TMPDIR/cache 2>/dev/null || true
-  cp -r $FIXTURE_DIR/build $TMPDIR 2>/dev/null || mkdir $TMPDIR/build
-  cp -r $FIXTURE_DIR/cache $TMPDIR 2>/dev/null || mkdir $TMPDIR/cache
-  cp -r $FIXTURE_DIR/env $TMPDIR 2>/dev/null || mkdir $TMPDIR/env
-  capture $BUILDPACK_HOME/bin/compile $TMPDIR/build $TMPDIR/cache $TMPDIR/env
+  FIXTURE_DIR="$BUILDPACK_HOME/test/fixtures/$1"
+  rm -r "$TMPDIR/build" "$TMPDIR/env" "$TMPDIR/cache" 2>/dev/null || true
+  cp -r "$FIXTURE_DIR/build" $TMPDIR 2>/dev/null || mkdir "$TMPDIR/build"
+  cp -r "$FIXTURE_DIR/cache" $TMPDIR 2>/dev/null || mkdir "$TMPDIR/cache"
+  cp -r "$FIXTURE_DIR/env" $TMPDIR 2>/dev/null || mkdir "$TMPDIR/env"
+  capture "$BUILDPACK_HOME/bin/compile" "$TMPDIR/build" "$TMPDIR/cache" "$TMPDIR/env"
 }
 
 test_simple() {
