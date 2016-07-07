@@ -1,4 +1,4 @@
-# Heroku Buildpack for EJSON [![Circle CI](https://circleci.com/gh/Shopify/heroku-buildpack-ejson.svg?style=shield&circle-token=a7492758934077f0e7dec1746a75c18149b4a8c1)](https://circleci.com/gh/Shopify/heroku-buildpack-ejson)
+# Heroku Buildpack for EJSON [![CircleCI](https://circleci.com/gh/Shopify/heroku-buildpack-ejson/tree/master.svg?style=shield&circle-token=2b541d71a955da8094b3e09ffe62ce0061e4ac8d)](https://circleci.com/gh/Shopify/heroku-buildpack-ejson/tree/master)
 
 This is a [Heroku Buildback](http://devcenter.heroku.com/articles/buildpacks) that automates the decryption of [EJSON](https://github.com/Shopify/ejson) secrets on deploy.
 It uses the keypair specified by the Heroku environment variables `EJSON_PUBLIC_KEY` and `EJSON_PRIVATE_KEY` to decrypt every `ejson` file in the given repo
