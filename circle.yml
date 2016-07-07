@@ -1,6 +1,6 @@
 dependencies:
   override:
-    - true
+    - echo Not `bundle install`ing
 
 test:
   override:
