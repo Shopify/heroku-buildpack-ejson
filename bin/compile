@@ -24,12 +24,12 @@ run_command_indented bundle install
 
 heading "Loading keypair from environment variables"
 if [ ! -f $ENV_DIR/EJSON_PUBLIC_KEY ]; then
-    heading "EJSON_PUBLIC_KEY is undefined; make sure EJSON_PUBLIC_KEY and EJSON_PRIVATE_KEY are set (try `ejson keygen`)"
+    heading 'EJSON_PUBLIC_KEY is undefined; make sure EJSON_PUBLIC_KEY and EJSON_PRIVATE_KEY are set (try `ejson keygen`)'
     exit 1
 fi
 
 if [ ! -f $ENV_DIR/EJSON_PRIVATE_KEY ]; then
-    heading "EJSON_PRIVATE_KEY is undefined; make sure EJSON_PUBLIC_KEY and EJSON_PRIVATE_KEY are set (try `ejson keygen`)"
+    heading 'EJSON_PRIVATE_KEY is undefined; make sure EJSON_PUBLIC_KEY and EJSON_PRIVATE_KEY are set (try `ejson keygen`)'
     exit 1
 fi
 export EJSON_KEYDIR=$(mktemp -d)
