@@ -1,0 +1,3 @@
+name: heroku-buildpack-ejson
+commands:
+  test: script/test

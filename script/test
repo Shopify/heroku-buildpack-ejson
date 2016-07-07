@@ -1,2 +1,2 @@
 #!/bin/bash
-SHUNIT_HOME=$(cd ./vendor/shunit2/source/2.1 && pwd) vendor/heroku-buildpack-testrunner/bin/run .
+SHUNIT_HOME=$(cd vendor/shunit2/source/2.1 && pwd) vendor/heroku-buildpack-testrunner/bin/run .
