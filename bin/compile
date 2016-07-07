@@ -21,10 +21,6 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 
-echo "source 'https://rubygems.org'" > "$CACHE_DIR/Gemfile"
-echo "gem 'ejson', '~> 1.0', '>= 1.0.1'" >> "$CACHE_DIR/Gemfile"
-export BUNDLE_GEMFILE="$CACHE_DIR/Gemfile"
-
 heading "Installing ejson"
 run_command_indented bundle install --path "$CACHE_DIR"
 

@@ -2,6 +2,7 @@
 
 . "$BUILDPACK_TEST_RUNNER_HOME/lib/test_utils".sh
 TMPDIR=$(mktemp -d)
+export BUNDLE_GEMFILE="$BUILDPACK_HOME/Gemfile"
 
 cleanup() {
   rm -r $TMPDIR
