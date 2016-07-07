@@ -30,14 +30,14 @@ test_missing_public_key() {
   compile_with_fixture missing_public_key
   assertCapturedError
   assertCaptured "Loading keypair from environment variables"
-  assertCaptured "EJSON_PUBLIC_KEY is undefined; make sure EJSON_PUBLIC_KEY and EJSON_PRIVATE_KEY are set (try `ejson keygen`)"
+  assertCaptured 'EJSON_PUBLIC_KEY is undefined; make sure EJSON_PUBLIC_KEY and EJSON_PRIVATE_KEY are set (try `ejson keygen`)'
 }
 
 test_missing_private_key() {
   compile_with_fixture missing_private_key
   assertCapturedError
   assertCaptured "Loading keypair from environment variables"
-  assertCaptured "EJSON_PRIVATE_KEY is undefined; make sure EJSON_PUBLIC_KEY and EJSON_PRIVATE_KEY are set (try `ejson keygen`)"
+  assertCaptured 'EJSON_PRIVATE_KEY is undefined; make sure EJSON_PUBLIC_KEY and EJSON_PRIVATE_KEY are set (try `ejson keygen`)'
 }
 
 test_bad_keypair() {
