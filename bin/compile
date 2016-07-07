@@ -19,8 +19,7 @@ CACHE_DIR=$2
 ENV_DIR=$3
 
 heading "Installing ejson"
-export BUNDLE_PATH=$CACHE_DIR
-run_command_indented bundle install
+run_command_indented bundle install --path "$CACHE_DIR"
 
 heading "Loading keypair from environment variables"
 if [ ! -f "$ENV_DIR/EJSON_PUBLIC_KEY" ]; then
