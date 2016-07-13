@@ -18,18 +18,22 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 
+EJSON_FAIL_EARLY=0
+
 heading "Installing ejson"
 run_command_indented bundle install --path "$CACHE_DIR"
 
 heading "Loading keypair from environment variables"
 if [ ! -f "$ENV_DIR/EJSON_PUBLIC_KEY" ]; then
     heading 'EJSON_PUBLIC_KEY is undefined; make sure EJSON_PUBLIC_KEY and EJSON_PRIVATE_KEY are set (try `ejson keygen`)'
-    exit 1
+    heading 'Not decrypting anything'
+    exit $EJSON_FAIL_EARLY
 fi
 
 if [ ! -f "$ENV_DIR/EJSON_PRIVATE_KEY" ]; then
     heading 'EJSON_PRIVATE_KEY is undefined; make sure EJSON_PUBLIC_KEY and EJSON_PRIVATE_KEY are set (try `ejson keygen`)'
-    exit 1
+    heading 'Not decrypting anything'
+    exit $EJSON_FAIL_EARLY
 fi
 export EJSON_KEYDIR=$(mktemp -d)
 trap 'rm -rf $EJSON_KEYDIR' EXIT
@@ -42,7 +46,11 @@ COUNTER=0
 for FILE in $(find $BUILD_DIR -name '*.ejson'); do
   DECRYPTED_FILE=${FILE%.ejson}.json
   line "Decrypting ${FILE:${#BUILD_DIR}+1} --> ${DECRYPTED_FILE:${#BUILD_DIR}+1}"
-  bundle exec ejson decrypt "$FILE" > "$DECRYPTED_FILE" 2>&1 || (line $(cat "$DECRYPTED_FILE") && exit 1)
-  let COUNTER+=1
+  if bundle exec ejson decrypt "$FILE" > "$DECRYPTED_FILE" 2>&1; then
+    let COUNTER+=1
+  else
+    line $(cat "$DECRYPTED_FILE") "[skipping and continuing]"
+    rm "$DECRYPTED_FILE"
+  fi
 done
-heading "Done. Successfully decrypted $COUNTER different ejson file(s)"
+heading "Done. Decrypted $COUNTER different ejson file(s)"

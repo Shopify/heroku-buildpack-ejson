@@ -24,28 +24,31 @@ test_simple() {
   assertCaptured "Installing ejson"
   assertCaptured "Loading keypair from environment variables"
   assertCaptured "Enumerating and decrypting *.ejson files"
-  assertCaptured "Done. Successfully decrypted 1 different ejson file(s)"
+  assertCaptured "Done. Decrypted 1 different ejson file(s)"
 }
 
 test_missing_public_key() {
   compile_with_fixture missing_public_key
-  assertCapturedError
+  assertCapturedSuccess
   assertCaptured "Loading keypair from environment variables"
   assertCaptured 'EJSON_PUBLIC_KEY is undefined; make sure EJSON_PUBLIC_KEY and EJSON_PRIVATE_KEY are set (try `ejson keygen`)'
+  assertCaptured 'Not decrypting anything'
 }
 
 test_missing_private_key() {
   compile_with_fixture missing_private_key
-  assertCapturedError
+  assertCapturedSuccess
   assertCaptured "Loading keypair from environment variables"
   assertCaptured 'EJSON_PRIVATE_KEY is undefined; make sure EJSON_PUBLIC_KEY and EJSON_PRIVATE_KEY are set (try `ejson keygen`)'
+  assertCaptured 'Not decrypting anything'
 }
 
 test_bad_keypair() {
   compile_with_fixture bad_keypair
-  assertCapturedError
+  assertCapturedSuccess
   assertCaptured "Loading keypair from environment variables"
   assertCaptured "Decryption failed: couldn't read key file"
+  assertCaptured "Done. Decrypted 0 different ejson file(s)"
 }
 
 test_deeply_nested() {
@@ -55,7 +58,7 @@ test_deeply_nested() {
   assertCaptured "Loading keypair from environment variables"
   assertCaptured "Enumerating and decrypting *.ejson files"
   assertCaptured "foo/bar/baz/launch_codes.ejson"
-  assertCaptured "Done. Successfully decrypted 1 different ejson file(s)"
+  assertCaptured "Done. Decrypted 1 different ejson file(s)"
 }
 
 test_many() {
@@ -64,5 +67,16 @@ test_many() {
   assertCaptured "Installing ejson"
   assertCaptured "Loading keypair from environment variables"
   assertCaptured "Enumerating and decrypting *.ejson files"
-  assertCaptured "Done. Successfully decrypted 5 different ejson file(s)"
+  assertCaptured "Done. Decrypted 5 different ejson file(s)"
+}
+
+test_dont_fail_early() {
+  compile_with_fixture dont_fail_early
+  assertCapturedSuccess
+  assertCaptured "Loading keypair from environment variables"
+  assertCaptured "Enumerating and decrypting *.ejson files"
+  assertCaptured "bad.ejson"
+  assertCaptured "good.ejson"
+  assertCaptured "Decryption failed"
+  assertCaptured "Done. Decrypted 1 different ejson file(s)"
 }
