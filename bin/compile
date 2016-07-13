@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -eo pipefail
 
 heading() {
   echo "----->" $@;
@@ -12,9 +12,6 @@ line() {
 
 run_command_indented() {
   $@ 2>&1 | awk '{print "       " $0}'
-  if [[ ${PIPESTATUS[0]} != "0" ]]; then
-    exit 1
-  fi
 }
 
 BUILD_DIR=$1
@@ -35,6 +32,7 @@ if [ ! -f "$ENV_DIR/EJSON_PRIVATE_KEY" ]; then
     exit 1
 fi
 export EJSON_KEYDIR=$(mktemp -d)
+trap 'rm -rf $EJSON_KEYDIR' EXIT
 PUBLIC_KEY=$(cat "$ENV_DIR/EJSON_PUBLIC_KEY")
 PRIVATE_KEY=$(cat "$ENV_DIR/EJSON_PRIVATE_KEY")
 echo "$PRIVATE_KEY" > "$EJSON_KEYDIR/$PUBLIC_KEY"
@@ -48,5 +46,3 @@ for FILE in $(find $BUILD_DIR -name '*.ejson'); do
   let COUNTER+=1
 done
 heading "Done. Successfully decrypted $COUNTER different ejson file(s)"
-
-rm -r "$EJSON_KEYDIR"
