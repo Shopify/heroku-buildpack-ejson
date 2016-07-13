@@ -47,3 +47,22 @@ test_bad_keypair() {
   assertCaptured "Loading keypair from environment variables"
   assertCaptured "Decryption failed: couldn't read key file"
 }
+
+test_deeply_nested() {
+  compile_with_fixture deeply_nested
+  assertCapturedSuccess
+  assertCaptured "Installing ejson"
+  assertCaptured "Loading keypair from environment variables"
+  assertCaptured "Enumerating and decrypting *.ejson files"
+  assertCaptured "foo/bar/baz/launch_codes.ejson"
+  assertCaptured "Done. Successfully decrypted 1 different ejson file(s)"
+}
+
+test_many() {
+  compile_with_fixture many
+  assertCapturedSuccess
+  assertCaptured "Installing ejson"
+  assertCaptured "Loading keypair from environment variables"
+  assertCaptured "Enumerating and decrypting *.ejson files"
+  assertCaptured "Done. Successfully decrypted 5 different ejson file(s)"
+}
