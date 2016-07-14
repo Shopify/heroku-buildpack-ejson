@@ -41,7 +41,7 @@ heading "Enumerating and decrypting *.ejson files"
 COUNTER=0
 for FILE in $(find $BUILD_DIR -name '*.ejson'); do
   DECRYPTED_FILE=${FILE%.ejson}.json
-  line "Decrypting $FILE --> $DECRYPTED_FILE"
+  line "Decrypting ${FILE:${#BUILD_DIR}+1} --> ${DECRYPTED_FILE:${#BUILD_DIR}+1}"
   bundle exec ejson decrypt "$FILE" > "$DECRYPTED_FILE" 2>&1 || (line $(cat "$DECRYPTED_FILE") && exit 1)
   let COUNTER+=1
 done
