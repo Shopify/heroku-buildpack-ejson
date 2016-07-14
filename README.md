@@ -20,7 +20,7 @@ The environment is controlled via the Heroku environment variable `EJSON_ENVIRON
 
 If `EJSON_ENVIRONMENT` is blank or unset, then by default the buildpack will attempt to decrypt all `.ejson` files, excluding
 those with a compound extensions specifying the environment (like `.production.ejson`). For example, in this case
-'config/secrets.ejson' would be decrypted on deploy into `config/secrets.json`, but `config/secrets.staging.ejson`
+`config/secrets.ejson` would be decrypted on deploy into `config/secrets.json`, but `config/secrets.staging.ejson`
 would be left untouched.
 
 If `EJSON_ENVIRONMENT` is set, then the buildpack will exclusively decrypt files with a compound extension of the form
