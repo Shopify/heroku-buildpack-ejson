@@ -1,0 +1,16 @@
+#!/bin/bash
+
+FIXTURE_DIR="$(pwd)/test/fixtures/$1"
+COMPILE_BIN="$(pwd)/bin/compile"
+TMPDIR=$(mktemp -d)
+function cleanup {
+  rm -r "$TMPDIR"
+}
+trap cleanup EXIT
+
+cp "$(pwd)/Gemfile" "$TMPDIR"
+cd "$TMPDIR"
+cp -r "$FIXTURE_DIR/build" "$TMPDIR" 2>/dev/null || mkdir "$TMPDIR/build"
+cp -r "$FIXTURE_DIR/cache" "$TMPDIR" 2>/dev/null || mkdir "$TMPDIR/cache"
+cp -r "$FIXTURE_DIR/env" "$TMPDIR" 2>/dev/null || mkdir "$TMPDIR/env"
+"$COMPILE_BIN" "$TMPDIR/build" "$TMPDIR/cache" "$TMPDIR/env"
