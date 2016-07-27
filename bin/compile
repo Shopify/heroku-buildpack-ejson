@@ -18,9 +18,16 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 
-if ! bundle check --path "$CACHE_DIR" > /dev/null 2>&1; then
-  heading "Installing ejson"
-  run_command_indented bundle install --path "$CACHE_DIR"
+if uname -sm | grep Darwin; then
+  PLATFORM="darwin"
+else
+  PLATFORM="linux"
+fi
+
+if ! [ -f "$CACHE_DIR/ejson" ]; then
+  heading "Installing ejson from GitHub release"
+  wget -q https://github.com/Shopify/ejson/releases/download/1.0.1/ejson_${PLATFORM}_binary -O "$CACHE_DIR/ejson"
+  chmod +x "$CACHE_DIR/ejson"
 else
   heading "ejson is already installed"
 fi
@@ -66,7 +73,7 @@ for FILE in $(find "$BUILD_DIR" $PREDICATE); do
     MEMO=""
   fi
 
-  if bundle exec ejson decrypt "$FILE" > "$DECRYPTED_FILE" 2>&1; then
+  if "$CACHE_DIR/ejson" decrypt "$FILE" > "$DECRYPTED_FILE" 2>&1; then
     heading "Decrypting ${FILE:${#BUILD_DIR}+1} --> ${DECRYPTED_FILE:${#BUILD_DIR}+1}$MEMO"
     let COUNTER+=1
   else
