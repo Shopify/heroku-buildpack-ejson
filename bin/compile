@@ -25,8 +25,8 @@ else
 fi
 
 if ! [ -f "$CACHE_DIR/ejson" ]; then
-  heading "Installing ejson from GitHub release"
-  wget -q https://github.com/Shopify/ejson/releases/download/1.0.1/ejson_${PLATFORM}_binary -O "$CACHE_DIR/ejson"
+  heading "Installing ejson from GitHub release (Platform $PLATFORM)"
+  run_command_indented wget https://github.com/Shopify/ejson/releases/download/1.0.1/ejson_${PLATFORM}_binary -O "$CACHE_DIR/ejson"
   chmod +x "$CACHE_DIR/ejson"
 else
   heading "ejson is already installed"
