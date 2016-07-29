@@ -1,7 +1,6 @@
 #!/bin/bash
 
 . "$BUILDPACK_TEST_RUNNER_HOME/lib/test_utils".sh
-export BUNDLE_GEMFILE="$BUILDPACK_HOME/Gemfile"
 
 compile_with_fixture() {
   TMPDIR=$(mktemp -d)

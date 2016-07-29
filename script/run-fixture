@@ -13,7 +13,6 @@ function cleanup {
 }
 trap cleanup EXIT
 
-cp "$(pwd)/Gemfile" "$TMPDIR"
 cd "$TMPDIR"
 cp -r "$FIXTURE_DIR/build" "$TMPDIR" 2>/dev/null || mkdir "$TMPDIR/build"
 cp -r "$FIXTURE_DIR/cache" "$TMPDIR" 2>/dev/null || mkdir "$TMPDIR/cache"
