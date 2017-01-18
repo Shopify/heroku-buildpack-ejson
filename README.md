@@ -34,6 +34,6 @@ need to share.
 
 Additionally, this strategy allows your app to be agnostic about its environment, with respect to configuration.
 Suppose you commit a `secrets.json` for development use, a `secrets.staging.ejson` for a staging app,
-and a `secrets.produciton.ejson` containing production credentials. Then, your app can read its configuration unconditionally
+and a `secrets.production.ejson` containing production credentials. Then, your app can read its configuration unconditionally
 from `secrets.json`; in development it will read the original development credentials, and in production or staging
 `secrets.json` will have been overwritten with whichever credential set was appropriate.
