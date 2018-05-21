@@ -1,0 +1,15 @@
+containers:
+  default:
+    docker: alpine:latest
+  production:
+    application: Shopify/heroku-buildpack-ejson
+    environment: production
+
+pipelines:
+  heroku-buildpack-ejson:
+    steps:
+      - label: Tests
+        timeout: 5m
+        run:
+          - echo "Hello World"
+
