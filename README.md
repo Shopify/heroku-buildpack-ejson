@@ -1,4 +1,4 @@
-# Heroku Buildpack for EJSON [![CircleCI](https://circleci.com/gh/Shopify/heroku-buildpack-ejson/tree/master.svg?style=shield)](https://circleci.com/gh/Shopify/heroku-buildpack-ejson/tree/master)
+# Heroku Buildpack for EJSON [![Build Status](https://travis-ci.org/Shopify/heroku-buildpack-ejson.svg?branch=master)](https://travis-ci.org/Shopify/heroku-buildpack-ejson)
 
 This is a [Heroku Buildback](http://devcenter.heroku.com/articles/buildpacks) that automates the decryption of [EJSON](https://github.com/Shopify/ejson) secrets on deploy.
 
